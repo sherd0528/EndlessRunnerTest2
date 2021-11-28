@@ -41,8 +41,8 @@ MonoBehaviour:
   useRoll: 0
   useColors: 0
   useSizes: 0
-  minOrientation: {x: -10, y: -90, z: 0}
-  maxOrientation: {x: 10, y: 90, z: 0}
+  minOrientation: {x: -3, y: -90, z: 0}
+  maxOrientation: {x: 3, y: 90, z: 0}
   minRandomStep: {x: 10, y: 20, z: 0}
   maxRandomStep: {x: 10, y: 45, z: 0}
   minTurnRate: {x: 1, y: 2, z: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
   minColor:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.7924528, g: 0.1424342, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -83,7 +83,7 @@ MonoBehaviour:
   maxColor:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 0, b: 0.91679955, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -111,19 +111,55 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   minSize:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxSize:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.033332825
+      value: 0.51651
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minSegmentOffset: {x: 0, y: 0, z: 0}
-  maxSegmentOffset: {x: 0, y: 0, z: 0}
-  segmentOffsetSpace: 0
+  minSegmentOffset: {x: 0, y: 0, z: -0.1}
+  maxSegmentOffset: {x: 0, y: 0, z: -0.1}
+  segmentOffsetSpace: 1
   newLevelMinOffset: {x: 0, y: 0, z: 0}
   newLevelMaxOffset: {x: 0, y: 0, z: 0}
-  levelOffsetSpace: 0
+  levelOffsetSpace: 1

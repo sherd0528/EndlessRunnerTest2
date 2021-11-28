@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 //using DG.Tweening;
 
 public class CamManager : MonoBehaviour
@@ -36,17 +35,6 @@ public class CamManager : MonoBehaviour
    public bool isFollow;
 
    public Transform[] camWork;
-
-   public InputField inputCamDist;
-
-   public InputField inputAngleX;
-   public InputField inputAngleY;
-   public InputField inputAngleZ;
-
-   public InputField inputOffsetX;
-   public InputField inputOffsetY;
-   public InputField inputOffsetZ;
-
    Transform lookTarget;
    //public float dist;
    //public float up;
@@ -61,16 +49,6 @@ public class CamManager : MonoBehaviour
          transform.position = target.position + offset;
          target_off = transform.position - target.position;
       }
-
-      inputCamDist.text = distance.ToString();
-
-      inputAngleX.text = transform.localEulerAngles.x.ToString();
-      inputAngleY.text = transform.localEulerAngles.y.ToString();
-      inputAngleZ.text = transform.localEulerAngles.z.ToString();
-
-      inputOffsetX.text = offset.x.ToString();
-      inputOffsetY.text = offset.y.ToString();
-      inputOffsetZ.text = offset.z.ToString();
 
       //DOTween.Init();
 
@@ -108,6 +86,8 @@ public class CamManager : MonoBehaviour
 
       transform.position = pos;// Vector3.Lerp(transform.position, pos, smoothSpeed * Time.deltaTime);
 
+      //transform.LookAt(target);
+
       //RaycastHit hit;
 
       //if (Physics.Raycast(RaySource.position, (spheremask.transform.position - transform.position).normalized, out hit, Mathf.Infinity))
@@ -128,9 +108,9 @@ public class CamManager : MonoBehaviour
       
       
       //new Vector3(Mathf.Clamp(smoothPosition.x, LimitBounday.x, LimitBounday.y), Mathf.Clamp(smoothPosition.y, LimitBounday.w, LimitBounday.z), -10f);
-      //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, target.localEulerAngles.y - 90f, transform.localEulerAngles.z);
+      transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, target.localEulerAngles.y - 90f, transform.localEulerAngles.z);
       //LookAtSmooth.Look(transform, target.position + transform.right * distance + transform.up * height, 5f);
-      //transform.LookAt(target.position + transform.right * 2.5f + transform.up * 2f);
+      transform.LookAt(target.position + transform.right * 2.5f + transform.up * 2f);
       //if (target)
       //{
       //  // Calculate the current rotation angles
@@ -166,61 +146,6 @@ public class CamManager : MonoBehaviour
    private void MaskScale(float scale, float time)
    {      
       //iTween.ScaleTo(spheremask.gameObject, Vector3.one * scale, time);
-   }
-
-   public void CamDist(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-      distance = f;
-   }
-
-   public void CamAngleX(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-      Vector3 a = transform.localEulerAngles;
-      transform.localEulerAngles = new Vector3(f, a.y, a.z);
-   }
-
-   public void CamAngleY(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-      Vector3 a = transform.localEulerAngles;
-      transform.localEulerAngles = new Vector3(a.x, f, a.z);
-   }
-
-   public void CamAngleZ(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-      Vector3 a = transform.localEulerAngles;
-      transform.localEulerAngles = new Vector3(a.x, a.y, f);
-   }
-
-   public void CamOffsetX(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-
-      offset.x = f;
-   }
-
-   public void CamOffsetY(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-
-      offset.y = f;
-   }
-
-   public void CamOffsetZ(string v)
-   {
-      float f = 0;
-      float.TryParse(v, out f);
-
-      offset.z = f;
    }
 
    //   public static Follower instance;
