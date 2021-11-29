@@ -131,8 +131,8 @@ public class Mage : Player
 
    public void Hit(int dmg)
    {
-      this.HP -= dmg;
-      
+      this.HP = Mathf.Clamp(this.HP - dmg, 0, this.HP);
+      tmp.text = HP.ToString();
    }
 
    //public void AttackSensorLost(GameObject t, SensorToolkit.Sensor s)

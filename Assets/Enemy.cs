@@ -44,26 +44,38 @@ public class Enemy : MonoBehaviour
 
    public int Hit(int dmg)
    {
-      this.hp = Mathf.Max(this.hp - dmg, 0);
+      this.hp = Mathf.Clamp(this.hp - dmg, 0, this.hp);
       tmp.text = this.hp.ToString();
 
-      if (this.hp == 0)
+      if (hp > 0)
       {
-         anim.Play("Die");
+         anim.Play("Attack02");
+         StartCoroutine(SC_Back());         
       }
       else
-      {
-         runner.followSpeed = 60f;
-         StartCoroutine(SC_Back());
-      }
-      
+         anim.Play("Die");
+
       //anim.Play("Die");
       return hp;      
    }
 
+   public void AttackFinished()
+   {
+      //if (this.hp == 0)
+      //{
+      //   anim.Play("Die");
+      //}
+      //else
+      //{
+      //   runner.followSpeed = 60f;         
+      //}
+
+   }
+
    IEnumerator SC_Back()
    {
-      anim.Play("Attack03");
+      //anim.Play("Attack03");
+      runner.followSpeed = 30f;
       Mage.Instance.Hit(this.hp);
       yield return new WaitForSeconds(0.12f);
       runner.followSpeed = 0.5f;

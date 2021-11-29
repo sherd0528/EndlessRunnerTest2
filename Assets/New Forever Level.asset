@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Forever Level
   m_EditorClassIdentifier: 
   _enabled: 1
-  _pathGenerator: {fileID: 0}
+  _pathGenerator: {fileID: 11400000, guid: 3529cc9903db546449d530fea2dc69de, type: 2}
   _sequenceCollection:
     sequences:
     - enabled: 1
@@ -104,17 +104,11 @@ MonoBehaviour:
       randomizer: {fileID: 11400000, guid: fb600be43607d7e47822c78754644d57, type: 2}
       customShuffle: {fileID: 0}
       preventRepeat: 0
-    - enabled: 1
+    - enabled: 0
       name: Sequence
       isCustom: 0
       customSequence: {fileID: 0}
-      segments:
-      - nested: 0
-        randomPickChance: 1
-        _prefab: {fileID: 2521332194401372221, guid: 965f2177c90cbf547bb3d512adaf213e, type: 3}
-        _segmentPool: []
-        _pool: 0
-        _poolParent: {fileID: 0}
+      segments: []
       customPathGenerator: {fileID: 0}
       spawnCount: 1
       type: 0
@@ -217,17 +211,11 @@ MonoBehaviour:
       randomizer: {fileID: 11400000, guid: fb600be43607d7e47822c78754644d57, type: 2}
       customShuffle: {fileID: 0}
       preventRepeat: 0
-    - enabled: 1
+    - enabled: 0
       name: Sequence
       isCustom: 0
       customSequence: {fileID: 0}
-      segments:
-      - nested: 0
-        randomPickChance: 1
-        _prefab: {fileID: 2521332194401372221, guid: 965f2177c90cbf547bb3d512adaf213e, type: 3}
-        _segmentPool: []
-        _pool: 0
-        _poolParent: {fileID: 0}
+      segments: []
       customPathGenerator: {fileID: 0}
       spawnCount: 1
       type: 0
