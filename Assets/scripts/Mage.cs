@@ -34,11 +34,14 @@ public class Mage : Player
    public ParticleSystem hitEffect;
    public AudioClip slashSound;
 
+   int MaxHP = 1;
    public int HP = 1;
 
    public TextMeshPro tmp;
-
    public ParticleSystem HPUpEffect;
+
+   int requiredExp = 1;
+   int exp = 0;
 
    void Start()
    {
@@ -67,32 +70,10 @@ public class Mage : Player
       
       if (attackSensor.GetNearest() != null)
       {
-         runner.followSpeed = 6f;
+         //runner.followSpeed = 6f;
          if (hitReact == false && attackDelay >= 1f && attackSensor.GetNearest() != null)
          {
-            anim.Play("Attack");
-            slashEffect.Play();
-            var target = attackSensor.GetNearest();
-            var enemy = target.GetComponent<Enemy>();
-            if (enemy.Hit(this.HP) == 0)
-            {
-               HP += enemy.MaxHP;
-               tmp.text = HP.ToString();
-               HPUpEffect.Play();
-            }
-
-            var e = Instantiate(hitEffect);
-
-            e.transform.position = target.transform.position + target.transform.forward;
-            e.transform.position += target.transform.up;
-            e.transform.localScale = Vector3.one * 3;
-            e.Play();
-
-            AudioSource.PlayClipAtPoint(slashSound, transform.position);
-
-            Camera.main.DOShakePosition(0.1f, 0.25f);
-
-            runner.followSpeed = 6f;
+            
             attackDelay = 0;
          }
       }
@@ -111,14 +92,47 @@ public class Mage : Player
 
    public void AttackSensor(GameObject t, SensorToolkit.Sensor s)
    {
-      
+      anim.Play("Attack");
+      slashEffect.Play();
+      var target = attackSensor.GetNearest();
+      var enemy = target.GetComponent<Enemy>();
+      if (enemy.Hit(this.HP) == 0)
+      {
+         exp++;
+         if (exp == requiredExp)
+         {
+            requiredExp++;
+            exp = 0;
+            MaxHP = HP = MaxHP + 1;
+            tmp.text = HP.ToString();
+            HPUpEffect.Play();
+         }
+      }
 
-      
+      var e = Instantiate(hitEffect);
+
+      e.transform.position = target.transform.position + target.transform.forward;
+      e.transform.position += target.transform.up;
+      e.transform.localScale = Vector3.one * 3;
+      e.Play();
+
+      AudioSource.PlayClipAtPoint(slashSound, transform.position);
+
+      Camera.main.DOShakePosition(0.1f, 0.25f);
+
+      //runner.followSpeed = 6f;
    }
 
    public void AttackFinished()
    {
-      //runner.followSpeed = 12f;
+      //runner.followSpeed = attackSensor.GetNearest() == null ? 12f : 6f;
+      runner.followSpeed = 12f;
+   }
+
+   public void Hit(int dmg)
+   {
+      this.HP -= dmg;
+      
    }
 
    //public void AttackSensorLost(GameObject t, SensorToolkit.Sensor s)

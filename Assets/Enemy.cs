@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
       }
       else
       {
-         runner.followSpeed = 40f;
+         runner.followSpeed = 60f;
          StartCoroutine(SC_Back());
       }
       
@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
    IEnumerator SC_Back()
    {
       anim.Play("Attack03");
+      Mage.Instance.Hit(this.hp);
       yield return new WaitForSeconds(0.12f);
       runner.followSpeed = 0.5f;
    }
