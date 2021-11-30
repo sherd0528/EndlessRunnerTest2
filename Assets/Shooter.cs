@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -20,12 +20,85 @@ public class Shooter : MonoBehaviour
 
    }
 
+   public Transform Target;
+   public float firingAngle = 50.0f;
+   public float gravity = 9.8f;
+
+   public Transform Projectile;
+   private Transform myTransform;
+
+   void Awake()
+   {
+      myTransform = transform;
+   }
+
+
+
+
+   IEnumerator SimulateProjectile()
+   {
+      // Short delay added before Projectile is thrown
+      //yield return new WaitForSeconds(1.5f);
+      firingAngle = 65f;
+      bullet.transform.position = transform.position + Vector3.up * 1.5f;
+      // Move projectile to the position of throwing object + add some offset if needed.
+      bullet.transform.position = transform.position + new Vector3(0, 0.0f, 0);
+
+      // Calculate distance to target
+      float target_Distance = Vector3.Distance(bullet.transform.position, target.position);
+
+      // Calculate the velocity needed to throw the object to the target at specified angle.
+      float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
+
+      // Extract the X  Y componenent of the velocity
+      float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
+      float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
+
+      // Calculate flight time.
+      float flightDuration = target_Distance / Vx;
+
+      // Rotate projectile to face the target.
+      bullet.transform.rotation = Quaternion.LookRotation(target.position - bullet.transform.position);
+
+      float elapse_time = 0;
+
+      while (elapse_time < flightDuration)
+      {
+         bullet.transform.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+
+         elapse_time += Time.deltaTime;
+
+         yield return null;
+      }
+
+      print("Done");
+   }
+
+   IEnumerator SC_Shot()
+   {
+      while (true)
+      {
+         //bullet.transform.LookAt(target.position);
+         //bullet.transform.localEulerAngles = new Vector3(-65f, bullet.transform.localEulerAngles.y, 0f);
+         ////var main = bullet.main;
+         ////main.startSpeed = Vector3.Distance(bullet.transform.position, target.transform.position);
+         //bullet.Play();
+         bullet.Play();
+         yield return StartCoroutine(SimulateProjectile());
+         yield return new WaitForSeconds(4f);
+      }
+   }
+
    public void Shot(float height)
    {
+      StartCoroutine(SC_Shot());
+
+      return;
+
       var path = new Vector3[6];
 
       var vec_center = Vector3.Lerp(transform.position, target.position, 0.5f);
-      path[0] = new Vector3(vec_center.x, vec_center.y + height, vec_center.z);      
+      path[0] = new Vector3(vec_center.x, vec_center.y + height, vec_center.z);
       path[1] = new Vector3(transform.position.x, transform.position.y + height, transform.position.z);
       vec_center = Vector3.Lerp(transform.position, target.position, 0.25f);
       path[2] = new Vector3(vec_center.x, vec_center.y + height, vec_center.z);
