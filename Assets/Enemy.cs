@@ -11,9 +11,12 @@ public class Enemy : MonoBehaviour
    [HideInInspector]
    public int MaxHP;
    int hp;
-   public TextMesh tmp;
+   public TextMeshPro tmp;
 
    Runner runner;
+
+   public ParticleSystem hitEffect;
+
    // Start is called before the first frame update
    void Start()
    {
@@ -34,7 +37,7 @@ public class Enemy : MonoBehaviour
    {
       hp = v;
       MaxHP = v;
-      //tmp.text = hp.ToString();
+      tmp.text = hp.ToString();
    }
 
    private void OnParticleCollision(GameObject other)
@@ -45,10 +48,20 @@ public class Enemy : MonoBehaviour
    public int Hit(int dmg)
    {
       this.hp = Mathf.Clamp(this.hp - dmg, 0, this.hp);
-      print("Monster HP: " + this.hp);
+      tmp.text = hp.ToString();
 
-      anim.Play("Attack02");
-      Mage.Instance.Hit(1);
+      GameObject prefab = Resources.Load("DmgText") as GameObject;
+      GameObject go = Instantiate(prefab) as GameObject;
+      go.transform.GetComponent<DmgText>().Show(-1, transform.position + Vector3.up);
+
+      print("Monster HP: " + this.hp);      
+
+      if (hp > 0)
+      {
+         StartCoroutine(SC_Back());
+      }
+      else
+         anim.Play("Die");
 
       //anim.Play("Die");
       return hp;      
@@ -58,12 +71,7 @@ public class Enemy : MonoBehaviour
    {
       print("AttackFinished");
 
-      if (hp > 0)
-      {
-         StartCoroutine(SC_Back());
-      }
-      else
-         anim.Play("Die");
+      
 
       //if (this.hp == 0)
       //{
@@ -78,7 +86,10 @@ public class Enemy : MonoBehaviour
 
    IEnumerator SC_Back()
    {
-      //anim.Play("Attack03");
+      anim.Play("Attack02");
+      hitEffect.Play();
+      Mage.Instance.Hit(1);
+
       runner.followSpeed = 30f;      
       yield return new WaitForSeconds(0.12f);
       runner.followSpeed = 0.5f;

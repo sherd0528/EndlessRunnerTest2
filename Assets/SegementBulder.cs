@@ -31,7 +31,7 @@ public class SegementBulder : Builder
       {
          if (e.gameObject.activeSelf)
          {
-            e.GetComponent<Enemy>().SetHP(Random.Range((int)Mathf.Max(1, Mage.Instance.HP / 2f), (int)(Mage.Instance.HP * 2.5f)));
+            e.GetComponent<Enemy>().SetHP(1);
          }
       }
    }

@@ -42,6 +42,7 @@ public class Mage : Player
 
    int requiredExp = 1;
    int exp = 0;
+   public Renderer renderer;
 
    void Start()
    {
@@ -133,6 +134,15 @@ public class Mage : Player
    {
       this.HP = Mathf.Clamp(this.HP - dmg, 0, this.HP);
       tmp.text = "x" + HP.ToString() + "/" + MaxHP.ToString();
+
+      renderer.material.color = Color.red;
+      StartCoroutine(SC_NormalColor());
+   }
+
+   IEnumerator SC_NormalColor()
+   {
+      yield return new WaitForSeconds(0.1f);
+      renderer.material.color = Color.white;
    }
 
    //public void AttackSensorLost(GameObject t, SensorToolkit.Sensor s)
