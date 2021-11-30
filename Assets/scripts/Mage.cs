@@ -34,10 +34,10 @@ public class Mage : Player
    public ParticleSystem hitEffect;
    public AudioClip slashSound;
 
-   int MaxHP = 1;
-   public int HP = 1;
+   int MaxHP = 10;
+   public int HP = 10;
 
-   public TextMeshPro tmp;
+   public TextMeshProUGUI tmp;
    public ParticleSystem HPUpEffect;
 
    int requiredExp = 1;
@@ -96,17 +96,17 @@ public class Mage : Player
       slashEffect.Play();
       var target = attackSensor.GetNearest();
       var enemy = target.GetComponent<Enemy>();
-      if (enemy.Hit(this.HP) == 0)
+      if (enemy.Hit(1) == 0)
       {
-         exp++;
-         if (exp == requiredExp)
-         {
-            requiredExp++;
-            exp = 0;
-            MaxHP = HP = MaxHP + 1;
-            tmp.text = HP.ToString();
-            HPUpEffect.Play();
-         }
+         //exp++;
+         //if (exp == requiredExp)
+         //{
+         //   requiredExp++;
+         //   exp = 0;
+         //   MaxHP = HP = MaxHP + 1;
+         //   tmp.text = HP.ToString();
+         //   HPUpEffect.Play();
+         //}
       }
 
       var e = Instantiate(hitEffect);
@@ -132,7 +132,7 @@ public class Mage : Player
    public void Hit(int dmg)
    {
       this.HP = Mathf.Clamp(this.HP - dmg, 0, this.HP);
-      tmp.text = HP.ToString();
+      tmp.text = "x" + HP.ToString() + "/" + MaxHP.ToString();
    }
 
    //public void AttackSensorLost(GameObject t, SensorToolkit.Sensor s)

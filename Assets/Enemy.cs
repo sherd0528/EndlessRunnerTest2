@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
    [HideInInspector]
    public int MaxHP;
    int hp;
-   public TextMeshPro tmp;
+   public TextMesh tmp;
 
    Runner runner;
    // Start is called before the first frame update
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
    {
       hp = v;
       MaxHP = v;
-      tmp.text = hp.ToString();
+      //tmp.text = hp.ToString();
    }
 
    private void OnParticleCollision(GameObject other)
@@ -45,15 +45,10 @@ public class Enemy : MonoBehaviour
    public int Hit(int dmg)
    {
       this.hp = Mathf.Clamp(this.hp - dmg, 0, this.hp);
-      tmp.text = this.hp.ToString();
+      print("Monster HP: " + this.hp);
 
-      if (hp > 0)
-      {
-         anim.Play("Attack02");
-         StartCoroutine(SC_Back());         
-      }
-      else
-         anim.Play("Die");
+      anim.Play("Attack02");
+      Mage.Instance.Hit(1);
 
       //anim.Play("Die");
       return hp;      
@@ -61,6 +56,15 @@ public class Enemy : MonoBehaviour
 
    public void AttackFinished()
    {
+      print("AttackFinished");
+
+      if (hp > 0)
+      {
+         StartCoroutine(SC_Back());
+      }
+      else
+         anim.Play("Die");
+
       //if (this.hp == 0)
       //{
       //   anim.Play("Die");
@@ -75,8 +79,7 @@ public class Enemy : MonoBehaviour
    IEnumerator SC_Back()
    {
       //anim.Play("Attack03");
-      runner.followSpeed = 30f;
-      Mage.Instance.Hit(this.hp);
+      runner.followSpeed = 30f;      
       yield return new WaitForSeconds(0.12f);
       runner.followSpeed = 0.5f;
    }
