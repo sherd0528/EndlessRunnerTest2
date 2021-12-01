@@ -7,11 +7,18 @@ public class Shooter : MonoBehaviour
 {
    public ParticleSystem bullet;
    public Transform target;
+   public float firingAngle = 50.0f;
+   public float gravity = 9.8f;
 
    // Start is called before the first frame update
    void Start()
    {
-      Shot(5f);
+      
+   }
+
+   private void Awake()
+   {
+      target.gameObject.SetActive(false);
    }
 
    // Update is called once per frame
@@ -19,21 +26,6 @@ public class Shooter : MonoBehaviour
    {
 
    }
-
-   public Transform Target;
-   public float firingAngle = 50.0f;
-   public float gravity = 9.8f;
-
-   public Transform Projectile;
-   private Transform myTransform;
-
-   void Awake()
-   {
-      myTransform = transform;
-   }
-
-
-
 
    IEnumerator SimulateProjectile()
    {
@@ -72,6 +64,7 @@ public class Shooter : MonoBehaviour
       }
 
       print("Done");
+      target.gameObject.SetActive(false);
    }
 
    IEnumerator SC_Shot()
@@ -89,9 +82,30 @@ public class Shooter : MonoBehaviour
       }
    }
 
+   IEnumerator SC_TargetSize(float size)
+   {
+      float dur = 1.5f;
+      float d = 0f;
+
+      target.gameObject.SetActive(true);
+
+      while (d < 1f)
+      {
+         var v = Mathf.Lerp(0.1f, size, d);
+         d += Time.deltaTime / dur;
+
+         target.GetComponent<Projector>().orthographicSize = v;
+
+         yield return null;
+      }
+   }
+
    public void Shot(float height)
    {
-      StartCoroutine(SC_Shot());
+      bullet.transform.position = transform.parent.position;
+      bullet.Play();
+      StartCoroutine(SC_TargetSize(3));
+      StartCoroutine(SimulateProjectile());
 
       return;
 
