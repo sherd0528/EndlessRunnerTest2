@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1-Boss-Field
   m_EditorClassIdentifier: 
   _enabled: 1
-  _pathGenerator: {fileID: 11400000, guid: 52f7c407f5216974e80eef88fe9c9aa4, type: 2}
+  _pathGenerator: {fileID: 0}
   _sequenceCollection:
     sequences:
     - enabled: 1

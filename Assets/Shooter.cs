@@ -31,7 +31,7 @@ public class Shooter : MonoBehaviour
    {
       // Short delay added before Projectile is thrown
       //yield return new WaitForSeconds(1.5f);
-      firingAngle = 65f;
+      firingAngle = 75f;
       bullet.transform.position = transform.position + Vector3.up * 1.5f;
       // Move projectile to the position of throwing object + add some offset if needed.
       bullet.transform.position = transform.position + new Vector3(0, 0.0f, 0);
