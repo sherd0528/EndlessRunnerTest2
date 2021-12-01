@@ -132,10 +132,11 @@ public class Mage : Player
       GameObject go = Instantiate(prefab) as GameObject;
 
 
-      var r = go.GetComponent<Dreamteck.Forever.Runner>();
-      r.followSpeed = 20f;
-      go.transform.position = transform.position;
-      r.motion.offset.x = runner.motion.offset.x;
+      //var r = go.GetComponent<Dreamteck.Forever.Runner>();
+      //r.followSpeed = 20f;
+      go.transform.position = transform.position + Vector3.up * 1.5f;
+      go.GetComponent<Shuriken>().Throw(target);
+      //r.motion.offset.x = runner.motion.offset.x;
 
       print("Range attack");
    }
