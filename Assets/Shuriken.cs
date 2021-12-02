@@ -14,17 +14,17 @@ public class Shuriken : MonoBehaviour
 
    // Update is called once per frame
    void Update()
-   {
-      transform.Rotate(new Vector3(0f, 0f, 25f));
+   {      
       if (target != null)
       {
-         transform.Translate(vec * Time.deltaTime * 10f);
+         transform.Translate(vec * Time.deltaTime * 30f);
       }
    }
 
    public void Throw(Transform t)
    {
       vec = (t.position - transform.position).normalized;
+      vec = new Vector3(vec.x, 0f, vec.z);
       target = t;
       //transform.LookAt(target);
       //transform.localEulerAngles = new Vector3(90f, 0f, 0f);
