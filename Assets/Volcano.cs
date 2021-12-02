@@ -13,7 +13,7 @@ public class Volcano : MonoBehaviour
          {
             var t = transform.GetChild(i);
             t.GetComponent<Shooter>().Shot(0);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
          }
 
          yield return new WaitForSeconds(1f);

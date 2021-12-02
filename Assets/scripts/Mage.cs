@@ -124,6 +124,23 @@ public class Mage : Player
       //runner.followSpeed = 6f;
    }
 
+   public void RangeAttackSensor(GameObject t, SensorToolkit.Sensor s)
+   {
+      var target = s.GetNearest().transform;
+
+      GameObject prefab = Resources.Load("Shuriken") as GameObject;
+      GameObject go = Instantiate(prefab) as GameObject;
+
+
+      //var r = go.GetComponent<Dreamteck.Forever.Runner>();
+      //r.followSpeed = 20f;
+      go.transform.position = transform.position + Vector3.up * 1.5f;
+      go.GetComponent<Shuriken>().Throw(target);
+      //r.motion.offset.x = runner.motion.offset.x;
+
+      print("Range attack");
+   }
+
    public void AttackFinished()
    {
       //runner.followSpeed = attackSensor.GetNearest() == null ? 12f : 6f;
