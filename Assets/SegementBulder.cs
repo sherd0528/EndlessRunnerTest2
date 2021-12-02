@@ -25,7 +25,7 @@ public class SegementBulder : Builder
    {
       base.Build();
 
-      print(build_count++);
+      //print(build_count++);
 
       foreach (Transform e in enemies)
       {

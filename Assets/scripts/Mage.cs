@@ -62,6 +62,7 @@ public class Mage : Player
          if (hitReact == false)
          {
             runner.motion.offset += new Vector2(joystick.Horizontal * Time.deltaTime * moveSpeed, 0f);
+            runner.motion.offset.x = Mathf.Clamp(runner.motion.offset.x, -9f, 9f);
             //Vector3 moveDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * moveSpeed * Time.deltaTime;
             //cc.Move(moveDirection);
 
@@ -126,21 +127,25 @@ public class Mage : Player
       //runner.followSpeed = 6f;
    }
 
+   int count = 0;
    public void RangeAttackSensor(GameObject t, SensorToolkit.Sensor s)
    {
       var target = s.GetNearest().transform;
 
+      print("Range Attack: " + count++ + "/" + target.gameObject.name +"/" + target.transform.position);
+
+      target.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+
       GameObject prefab = Resources.Load("Shuriken") as GameObject;
       GameObject go = Instantiate(prefab) as GameObject;
 
+      anim.Play("throw2");
 
       //var r = go.GetComponent<Dreamteck.Forever.Runner>();
       //r.followSpeed = 20f;
       go.transform.position = transform.position + Vector3.up * 1f + transform.forward;
       go.GetComponent<Shuriken>().Throw(target);
       //r.motion.offset.x = runner.motion.offset.x;
-
-      print("Range attack");
    }
 
    public void AttackFinished()

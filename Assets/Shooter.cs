@@ -63,7 +63,7 @@ public class Shooter : MonoBehaviour
          yield return null;
       }
 
-      print("Done");
+      //print("Done");
       target.gameObject.SetActive(false);
    }
 
