@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Shuriken : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class Shuriken : MonoBehaviour
    {      
       if (target != null)
       {
-         transform.Translate(vec * Time.deltaTime * 30f);
+         transform.Translate(vec * Time.deltaTime * 20f);
       }
    }
 
@@ -28,5 +29,22 @@ public class Shuriken : MonoBehaviour
       target = t;
       //transform.LookAt(target);
       //transform.localEulerAngles = new Vector3(90f, 0f, 0f);
+   }
+
+   private void OnCollisionEnter(Collision collision)
+   {
+      GameObject prefab = Resources.Load("ShurikenHitEffect") as GameObject;
+      GameObject go = Instantiate(prefab) as GameObject;
+      go.transform.position = transform.position;
+      
+      var e = collision.gameObject.GetComponent<Enemy>();
+      if (e == null) return;
+      if (e.hp <= 0) return;
+
+      Camera.main.DOShakePosition(0.1f, 0.25f);
+      if (e) e.Hit(1);
+      else print("no e");
+
+      Destroy(gameObject);
    }
 }

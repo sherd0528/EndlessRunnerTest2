@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
    public Animator anim;
    [HideInInspector]
    public int MaxHP;
-   int hp;
+   [HideInInspector]
+   public int hp;
    public TextMeshPro tmp;
 
    Runner runner;
@@ -54,14 +55,13 @@ public class Enemy : MonoBehaviour
       GameObject go = Instantiate(prefab) as GameObject;
       go.transform.GetComponent<DmgText>().Show(-1, transform.position + Vector3.up);
 
-      print("Monster HP: " + this.hp);      
+      print("Monster HP: " + this.hp);
 
-      if (hp > 0)
-      {
-         StartCoroutine(SC_Back());
-      }
-      else
-         anim.Play("Die");
+      //
+      runner.followSpeed = 30f;
+      StartCoroutine(SC_Back());
+
+      
 
       //anim.Play("Die");
       return hp;      
@@ -86,13 +86,19 @@ public class Enemy : MonoBehaviour
 
    IEnumerator SC_Back()
    {
-      anim.Play("Attack02");
-      hitEffect.Play();
-      Mage.Instance.Hit(1);
+      if (hp > 0)
+      {
+         anim.Play("Attack02");
+         hitEffect.Play();
+         Mage.Instance.Hit(1);
+      }
+      else
+      {
+         anim.Play("Die");
+      }
 
-      runner.followSpeed = 30f;      
       yield return new WaitForSeconds(0.12f);
-      runner.followSpeed = 0.5f;
+      runner.followSpeed = 0f;
    }
 
    void RecoverFromHit()

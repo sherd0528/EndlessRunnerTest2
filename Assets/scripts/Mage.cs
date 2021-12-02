@@ -97,6 +97,8 @@ public class Mage : Player
       slashEffect.Play();
       var target = attackSensor.GetNearest();
       var enemy = target.GetComponent<Enemy>();
+
+      if (enemy.hp <= 0) return;
       if (enemy.Hit(1) == 0)
       {
          //exp++;
@@ -134,7 +136,7 @@ public class Mage : Player
 
       //var r = go.GetComponent<Dreamteck.Forever.Runner>();
       //r.followSpeed = 20f;
-      go.transform.position = transform.position + Vector3.up * 1.5f;
+      go.transform.position = transform.position + Vector3.up * 1f + transform.forward;
       go.GetComponent<Shuriken>().Throw(target);
       //r.motion.offset.x = runner.motion.offset.x;
 
