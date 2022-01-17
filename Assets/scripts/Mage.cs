@@ -151,7 +151,7 @@ public class Mage : Player
    public void AttackFinished()
    {
       //runner.followSpeed = attackSensor.GetNearest() == null ? 12f : 6f;
-      runner.followSpeed = 12f;
+      //runner.followSpeed = 12f;
    }
 
    public void Hit(int dmg)
